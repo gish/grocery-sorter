@@ -1,25 +1,85 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Fuse from "fuse.js";
+import React, { useState } from "react";
+import referenceList from "./referenceList.json";
+
+import "./App.css";
+import {
+  Container,
+  CssBaseline,
+  Grid,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+
+const fuse = new Fuse(referenceList, { includeScore: true, threshold: 0.3 });
+const sortList = (unsortedList: string[]) => {
+  return [...unsortedList]
+    .filter((item) => item.length > 0)
+    .sort((a, b) => {
+      const resultA = fuse.search(a);
+      const resultB = fuse.search(b);
+      if (resultA.length === 0) {
+        return 1;
+      }
+      if (resultB.length === 0) {
+        return -1;
+      }
+      const posA = referenceList.indexOf(resultA[0].item);
+      const posB = referenceList.indexOf(resultB[0].item);
+      return posA < posB ? -1 : 1;
+    });
+};
+
+const hasMatch = (value: string) => {
+  const result = fuse.search(value);
+  return result.length > 0;
+};
+
+const getMatch = (value: string) => {
+  const result = fuse.search(value);
+  if (result.length === 0) {
+    return undefined;
+  }
+  return result[0].item;
+};
 
 function App() {
+  const [groceryList, setGroceryList] = useState("");
+  const sortedList = sortList(groceryList.split("\n")).join("\n");
+  const onGroceryListChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setGroceryList(e.target.value);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CssBaseline />
+      <Container maxWidth="md">
+        <Typography variant="h4" gutterBottom>
+          Veckohandling-sortering
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              multiline
+              onChange={onGroceryListChange}
+              value={groceryList}
+              rows={20}
+              variant="outlined"
+              fullWidth
+            ></TextField>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              multiline
+              value={sortedList}
+              rows={20}
+              variant="outlined"
+              disabled
+              fullWidth
+            ></TextField>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   );
 }
 
