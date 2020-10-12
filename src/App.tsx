@@ -30,19 +30,6 @@ const sortList = (unsortedList: string[]) => {
     });
 };
 
-const hasMatch = (value: string) => {
-  const result = fuse.search(value);
-  return result.length > 0;
-};
-
-const getMatch = (value: string) => {
-  const result = fuse.search(value);
-  if (result.length === 0) {
-    return undefined;
-  }
-  return result[0].item;
-};
-
 function App() {
   const [groceryList, setGroceryList] = useState("");
   const sortedList = sortList(groceryList.split("\n")).join("\n");
