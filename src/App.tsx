@@ -18,8 +18,8 @@ const sortList = (unsortedList: string[]) => {
   return [...unsortedList]
     .filter((item) => item.length > 0)
     .sort((a, b) => {
-      const resultA = fuse.search(a);
-      const resultB = fuse.search(b);
+      const resultA = fuse.search(a.toLowerCase());
+      const resultB = fuse.search(b.toLowerCase());
       if (resultA.length === 0) {
         return 1;
       }
@@ -49,7 +49,8 @@ const getScore = (item: string) => {
 };
 
 function App() {
-  const [groceryList, setGroceryList] = useState("");
+  const savedList = window.localStorage.getItem("groceryList");
+  const [groceryList, setGroceryList] = useState(savedList ?? "");
   const [debugEnabled, setDebugEnabled] = useState(false);
   const sortedList = sortList(groceryList.split("\n")).join("\n");
   const sortedListDebug = sortedList
@@ -57,6 +58,7 @@ function App() {
     .map((item) => `${item} (${getMatch(item)}, ${getScore(item)})`)
     .join("\n");
   const onGroceryListChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    window.localStorage.setItem("groceryList", e.target.value);
     setGroceryList(e.target.value);
   };
   const onDebugToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
