@@ -4,6 +4,7 @@ import referenceList from "./referenceList.json";
 
 import "./App.css";
 import {
+  Button,
   Checkbox,
   Container,
   CssBaseline,
@@ -50,18 +51,23 @@ const getScore = (item: string) => {
 
 function App() {
   const savedList = window.localStorage.getItem("groceryList");
+  const savedDebug = window.localStorage.getItem("debug") === "true";
   const [groceryList, setGroceryList] = useState(savedList ?? "");
-  const [debugEnabled, setDebugEnabled] = useState(false);
-  const sortedList = sortList(groceryList.split("\n")).join("\n");
+  const [debugEnabled, setDebugEnabled] = useState(savedDebug);
+  const [sortedList, setSortedList] = useState("");
   const sortedListDebug = sortedList
     .split("\n")
     .map((item) => `${item} (${getMatch(item)}, ${getScore(item)})`)
     .join("\n");
-  const onGroceryListChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onListUpdate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     window.localStorage.setItem("groceryList", e.target.value);
     setGroceryList(e.target.value);
   };
+  const onGroceryListSort = () => {
+    setSortedList(sortList(groceryList.split("\n")).join("\n"));
+  };
   const onDebugToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    window.localStorage.setItem("debug", e.target.checked.toString());
     setDebugEnabled(e.target.checked);
   };
   return (
@@ -74,8 +80,8 @@ function App() {
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <TextField
+              onChange={onListUpdate}
               multiline
-              onChange={onGroceryListChange}
               value={groceryList}
               rows={20}
               variant="outlined"
@@ -87,6 +93,13 @@ function App() {
               }
               label="Debug mode on"
             />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onGroceryListSort}
+            >
+              Sortera
+            </Button>
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
