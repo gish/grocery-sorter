@@ -27,8 +27,8 @@ const sortList = (unsortedList: string[]) => {
       if (resultB.length === 0) {
         return -1;
       }
-      const posA = referenceList.indexOf(resultA[0].item);
-      const posB = referenceList.indexOf(resultB[0].item);
+      const posA = referenceList.indexOf(resultA[0].item as string);
+      const posB = referenceList.indexOf(resultB[0].item as string);
       return posA < posB ? -1 : 1;
     });
 };
