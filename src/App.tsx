@@ -15,12 +15,24 @@ import {
 } from "@material-ui/core";
 
 const fuse = new Fuse(referenceList, { includeScore: true, threshold: 0.5 });
+interface SearchCache {
+  [value: string]: Fuse.FuseResult<string>[];
+}
+let searchCache: SearchCache = {};
+const cachedSearch = (item: string) => {
+  if (searchCache[item]) {
+    return searchCache[item];
+  }
+  const result = fuse.search(item.toLowerCase());
+  searchCache[item] = result;
+  return result;
+};
 const sortList = (unsortedList: string[]) => {
   return [...unsortedList]
     .filter((item) => item.length > 0)
     .sort((a, b) => {
-      const resultA = fuse.search(a.toLowerCase());
-      const resultB = fuse.search(b.toLowerCase());
+      const resultA = cachedSearch(a);
+      const resultB = cachedSearch(b);
       if (resultA.length === 0) {
         return 1;
       }
