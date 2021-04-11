@@ -67,16 +67,18 @@ function App() {
   const [groceryList, setGroceryList] = useState(savedList ?? "");
   const [debugEnabled, setDebugEnabled] = useState(savedDebug);
   const [sortedList, setSortedList] = useState("");
-  const sortedListDebug = sortedList
-    .split("\n")
-    .map((item) => `${item} (${getMatch(item)}, ${getScore(item)})`)
-    .join("\n");
+  const [sortedDebugList, setSortedDebugList] = useState("");
   const onListUpdate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     window.localStorage.setItem("groceryList", e.target.value);
     setGroceryList(e.target.value);
   };
   const onGroceryListSort = () => {
+    const sortedListDebug = sortedList
+      .split("\n")
+      .map((item) => `${item} (${getMatch(item)}, ${getScore(item)})`)
+      .join("\n");
     setSortedList(sortList(groceryList.split("\n")).join("\n"));
+    setSortedDebugList(sortedListDebug);
   };
   const onDebugToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     window.localStorage.setItem("debug", e.target.checked.toString());
@@ -116,7 +118,7 @@ function App() {
           <Grid item xs={12} md={6}>
             <TextField
               multiline
-              value={debugEnabled ? sortedListDebug : sortedList}
+              value={debugEnabled ? sortedDebugList : sortedList}
               rows={20}
               variant="outlined"
               disabled
