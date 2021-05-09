@@ -6,6 +6,7 @@ on:
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
+    environment: grocery-sorter
     steps:
       - uses: actions/checkout@v2
       - uses: ahmadnassri/action-dependabot-auto-merge@v2
