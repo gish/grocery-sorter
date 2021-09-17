@@ -13,6 +13,8 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import copy from "copy-to-clipboard";
+import { ContentCopy } from "@mui/icons-material";
 
 const fuse = new Fuse(referenceList, { includeScore: true, threshold: 0.5 });
 interface SearchCache {
@@ -124,6 +126,13 @@ function App() {
               disabled
               fullWidth
             ></TextField>
+            <Button
+              variant="outlined"
+              startIcon={<ContentCopy />}
+              onClick={() => copy(sortedList)}
+            >
+              Kopiera
+            </Button>
           </Grid>
         </Grid>
       </Container>
