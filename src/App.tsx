@@ -12,7 +12,7 @@ import {
   Grid,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import copy from "copy-to-clipboard";
 import { ContentCopy } from "@mui/icons-material";
 
