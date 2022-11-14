@@ -10,7 +10,7 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
-    "copy-to-clipboard": "^3.3.2",
+    "copy-to-clipboard": "^3.3.3",
     "fuse.js": "^6.6.2",
     "react": "^18.1.0",
     "react-dom": "^18.2.0",
