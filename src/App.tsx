@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import copy from "copy-to-clipboard";
-import { ContentCopy } from "@mui/icons-material";
+import { Clear, ContentCopy } from "@mui/icons-material";
 import { Stack } from "@mui/system";
 
 const fuse = new Fuse(referenceList, { includeScore: true, threshold: 0.5 });
@@ -76,7 +76,7 @@ function App() {
         <Stack spacing={1} direction="row">
           <Button
             variant="outlined"
-            startIcon={<ContentCopy />}
+            startIcon={<Clear />}
             onClick={() => setGroceryList("")}
           >
             Rensa
