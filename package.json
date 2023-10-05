@@ -8,7 +8,7 @@
     "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.12",
     "@types/node": "^18.16.3",
-    "@types/react": "^18.2.24",
+    "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.10",
     "copy-to-clipboard": "^3.3.3",
     "fuse.js": "^6.6.2",
