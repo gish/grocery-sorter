@@ -9,7 +9,7 @@
     "@mui/material": "^5.15.12",
     "@types/node": "^18.16.3",
     "@types/react": "^18.2.65",
-    "@types/react-dom": "^18.2.21",
+    "@types/react-dom": "^18.2.22",
     "copy-to-clipboard": "^3.3.3",
     "fuse.js": "^6.6.2",
     "react": "^18.1.0",
