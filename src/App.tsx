@@ -53,7 +53,9 @@ function App() {
     setGroceryList(e.target.value);
   };
   const onGroceryListSort = () => {
-    const sortedList = sortList(groceryList.split("\n")).join("\n");
+    const sortedList = sortList(
+      groceryList.split("\n").map((i) => i.trim())
+    ).join("\n");
     window.localStorage.setItem("groceryList", sortedList);
     setGroceryList(sortedList);
   };
