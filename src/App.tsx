@@ -39,8 +39,8 @@ const sortList = (unsortedList: string[]) => {
       if (resultB.length === 0) {
         return -1;
       }
-      const posA = referenceList.indexOf(resultA[0].item as string);
-      const posB = referenceList.indexOf(resultB[0].item as string);
+      const posA = referenceList.indexOf(resultA[0].item);
+      const posB = referenceList.indexOf(resultB[0].item);
       return posA < posB ? -1 : 1;
     });
 };
@@ -54,7 +54,7 @@ function App() {
   };
   const onGroceryListSort = () => {
     const sortedList = sortList(
-      groceryList.split("\n").map((i) => i.trim())
+      groceryList.split("\n").map((i) => i.trim()),
     ).join("\n");
     window.localStorage.setItem("groceryList", sortedList);
     setGroceryList(sortedList);
