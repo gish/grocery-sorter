@@ -71,7 +71,6 @@ function App() {
           onChange={onListUpdate}
           multiline
           value={groceryList}
-          rows={16}
           variant="outlined"
           fullWidth
         ></TextField>
